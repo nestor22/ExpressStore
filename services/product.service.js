@@ -1,12 +1,12 @@
 const faker = require('faker');
 
 class ProductService {
-  constructor(){
+  constructor() {
     this.products = [];
     this.generate();
   }
 
-  generate(){
+  generate() {
     const limit = 100;
     for (let index = 0; index < limit; index++) {
       products.push({
@@ -18,16 +18,36 @@ class ProductService {
     }
   }
 
-
-  create(){}
-  find(){
+  create(data) {
+    const newProduct = {
+      id: faker.datatype.uuid(),
+      ...data,
+    };
+    this.products.push(newProduct);
+    return newProduct;
+  }
+  find() {
     return this.products;
   }
-  findOne(id){
-    return this.products.find(item => item.id === id);
+  findOne(id) {
+    return this.products.find((item) => item.id === id);
   }
-  update(){}
-  delete(){}
+  update(id, changes) {
+    const index = this.products.findIndex(item => item.id === id);
+    if (index === -1){
+      throw new Error('product not found');
+    }
+    this.products[index] = changes;
+    return this.products[index]
+  }
+  delete(id) {
+    const index = this.products.findIndex(item => item.id === id);
+    if (index === -1){
+      throw new Error('product not found');
+    }
+    this.products.splice(index, 1);
+    return { id }
+  }
 }
 
 module.exports = ProductService;
