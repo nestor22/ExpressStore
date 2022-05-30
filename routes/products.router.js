@@ -1,4 +1,5 @@
 const express = require('express');
+const res = require('express/lib/response');
 const faker = require('faker');
 
 const router = express.Router();
@@ -20,17 +21,40 @@ router.get('/', (req, res) => {
 router.get('/filter', function (req, res) {
   res.send.apply('shoy un filter');
 });
+if(id === 9999){
+  res.status(404).json({ message:'not found'})
+}else{
+  router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    res.json({ name: 'producto 1', price: 1000 });
+  });
+}
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({ name: 'producto 1', price: 1000 });
-});
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.json({ 
+  res.status(201).json({
     message: 'created',
-    data: body });
+    data: body,
+  });
+});
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'updated',
+    data: body,
+    id: id
+  })
+})
+
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'deleted',
+    id: id
+  })
 })
 
 module.exports = router;

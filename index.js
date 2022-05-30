@@ -9,7 +9,7 @@ const app = express();
 
 const port = 3001;
 
-app.use(express.json)
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.send('hello world');
@@ -33,3 +33,5 @@ app.get('/categories/:categoryId/products/:productId', (req, res) => {
 app.listen(port, () => {
   console.log('mi port is ', port);
 });
+
+
