@@ -1,4 +1,5 @@
 const express = require('express');
+const { restart } = require('nodemon');
 const ProductService = require('../services/product.service');
 
 const router = express.Router();
@@ -22,10 +23,14 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
-  const { id } = req.params;
-  const body = req.body;
-  const product =  await service.update(id, body);
-  res.json(product);
+  try{
+    const { id } = req.params;
+    const body = req.body;
+    const product =  await service.update(id, body);
+    res.json(product);
+  }catch(e){
+    res.status(404).json({message: e.message})
+  }
 });
 
 router.delete('/:id', async (req, res) => {
