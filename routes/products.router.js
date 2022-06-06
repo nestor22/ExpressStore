@@ -29,7 +29,7 @@ router.patch('/:id', async (req, res) => {
     const product =  await service.update(id, body);
     res.json(product);
   }catch(e){
-    res.status(404).json({message: e.message})
+    next(e);
   }
 });
 

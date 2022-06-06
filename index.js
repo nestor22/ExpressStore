@@ -21,6 +21,7 @@ app.get('/nuva-ruta', (res) => {
 routerApi(app);
 
 app.use(logErrors);
+app.use(boomErrorHandler)
 app.use(errorHandler);
 
 app.get('/categories/:categoryId/products/:productId', (req, res) => {
