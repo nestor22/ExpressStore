@@ -1,9 +1,9 @@
-function logErrors(err, res, res, next) {
+function logErrors(err, req, res, next) {
   consoles.error(err);
   next(err);
 }
 
-function errorHandler(err, res, res, next) {
+function errorHandler(err, req, res, next) {
   console.error(err);
   res.status(500).json({ 
     message: err.message, 
@@ -11,7 +11,7 @@ function errorHandler(err, res, res, next) {
   });
 }
 
-function boomErrorHandler(err, res, res, next){
+function boomErrorHandler(err, req, res, next){
   if(err.isBoom){
     const{ output } = err;
     res.status(output.statusCode).json(output.payload);

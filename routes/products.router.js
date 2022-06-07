@@ -30,14 +30,20 @@ router.get(
   }
 );
 
-router.post('/',validateHanders(createProductSchema, 'body'), async (req, res) => {
+router.post('/',
+validateHanders(createProductSchema, 'body'), 
+async (req, res) => {
   
   const body = req.body;
   const newProduct = await service.create(body);
   res.status(201).json(newProduct);
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id',
+validateHanders(getProductSchema, 'params'),
+validateHanders(updateProductSchema, 'body'),
+
+ async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;

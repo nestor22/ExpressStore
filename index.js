@@ -1,8 +1,6 @@
 const express = require('express');
 const routerApi = require('./routes');
-const { logErrors, errorHandler } = require('./middlewares/error.handlers');
-
-const req = require('express/lib/request');
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handlers');
 
 const app = express();
 
@@ -10,7 +8,7 @@ const port = 3001;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (res) => {
   res.send('hello world');
 });
 

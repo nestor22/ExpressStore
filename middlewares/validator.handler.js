@@ -1,5 +1,5 @@
 
-const boom = require('boom');
+const boom = require('@hapi/boom');
 
 function validateHanders(schema, property){
   return (req, res, next) => { 
